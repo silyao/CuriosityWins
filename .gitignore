@@ -1,0 +1,4 @@
+# Files excluded from git version control
+.idea
+*.iml
+out
