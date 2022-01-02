@@ -1,4 +1,4 @@
-package topics.multi.threading.problems.producer.and.consumer;
+package topics.multithreading.problems.producerandconsumer;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -26,15 +26,18 @@ public class ProducerConsumerDemo {
     int consumerCount = 3;
     int queueCapacity = 10;
 
+    // Initialize producers and consumers containers
     Producer[] producers = new Producer[producerCount];
     Consumer[] consumers = new Consumer[consumerCount];
 
+    // Initialize M producers
     for (int i = 0; i < producerCount; i++) {
       Producer producerThread = new Producer(i, queue, queueCapacity);
       producers[i] = producerThread;
       producerThread.start();
     }
 
+    // Initialize N consumers
     for (int i = 0; i < consumerCount; i++) {
       Consumer consumerThread = new Consumer(i, queue);
       consumers[i] = consumerThread;

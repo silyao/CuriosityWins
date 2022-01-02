@@ -1,4 +1,4 @@
-package topics.multi.threading.problems.producer.and.consumer;
+package topics.multithreading.problems.producerandconsumer;
 
 import java.util.Queue;
 import java.util.Random;

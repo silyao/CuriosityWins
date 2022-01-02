@@ -1,4 +1,4 @@
-package topics.multi.threading.problems.producer.and.consumer;
+package topics.multithreading.problems.producerandconsumer;
 
 import java.util.Queue;
 import java.util.Random;
@@ -8,7 +8,7 @@ import java.util.Random;
  * Consumer class
  *
  * A class that consumes numbers from the queue.
- * Default time to produce: 500ms - 1500ms
+ * Default time to consume: 500ms - 1500ms
  *
  * Consumer gracefully shutdown once producer stopped and queue is empty.
  *
@@ -19,7 +19,6 @@ public class Consumer extends Thread implements Runnable {
   private Random rng;
   private volatile Queue<Integer> queue;
   private boolean inShutdownMode;
-  private boolean finishedConsumption;
 
   public Consumer (int id, Queue<Integer> queue) {
     super();
@@ -27,7 +26,6 @@ public class Consumer extends Thread implements Runnable {
     this.id = id;
     this.queue = queue;
     inShutdownMode = false;
-    finishedConsumption = false;
   }
 
   public void shutDown() {
@@ -46,7 +44,6 @@ public class Consumer extends Thread implements Runnable {
     synchronized (queue) {
       while (queue.isEmpty()) {
         if (inShutdownMode) {
-          finishedConsumption = true;
           return;
         }
 
@@ -66,7 +63,8 @@ public class Consumer extends Thread implements Runnable {
 
   @Override
   public void run() {
-    while (!finishedConsumption) {
+    while (!inShutdownMode || !queue.isEmpty()) {
+      System.out.println("Consumer Thread " + id + ": Queue isEmpty = " + queue.isEmpty());
       randomWait(500, 1500);
       consume();
     }
