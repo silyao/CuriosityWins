@@ -1,4 +1,6 @@
 # Files excluded from git version control
+.gradle
 .idea
 *.iml
-out
+build/
+out/
